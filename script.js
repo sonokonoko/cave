@@ -39,3 +39,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
+
+// コンタクトフォーム
+const response = await fetch('https://abc123xyz.lambda-url.ap-northeast-1.on.aws/', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(formData)
+});

@@ -56,6 +56,7 @@ nav a:hover {
 /* ヒーローセクション */
 .hero {
   height: 100vh;
+  min-height: 600px;
   position: relative;
   display: flex;
   align-items: center;
@@ -70,8 +71,18 @@ nav a:hover {
   width: 100%;
   height: 100%;
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-  background-size: cover;
-  background-position: center;
+  overflow: hidden;
+}
+
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .hero-bg::after {
@@ -166,22 +177,26 @@ section {
   margin-bottom: 20px;
 }
 
-/*.concept-image {
+.concept-image {
   width: 100%;
-  height: 500px;
-  background: linear-gradient(45deg, #2a2a2a, #1a1a1a);
+  max-width: 100%;
+  height: 0;
+  padding-bottom: 66.67%; /* 3:2 アスペクト比 */
+  overflow: hidden;
   border-radius: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #555;
-  font-size: 14px;
-  letter-spacing: 2px;
-}*/
+  position: relative;
+  background: linear-gradient(45deg, #2a2a2a, #1a1a1a);
+}
 
 .concept-image img {
-  width: 600px;
-  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 /* 特徴セクション */
@@ -219,7 +234,24 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  color: #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.feature-icon svg {
+  width: 32px;
+  height: 32px;
+  stroke: #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover .feature-icon {
+  background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+}
+
+.feature-item:hover .feature-icon svg {
+  stroke: #fff;
+  transform: scale(1.1);
 }
 
 .feature-item h4 {
@@ -262,15 +294,23 @@ section {
 
 .room-image {
   width: 100%;
-  height: 300px;
+  height: 0;
+  padding-bottom: 75%; /* 4:3 アスペクト比（間取り図に最適） */
   background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #555;
-  font-size: 14px;
   position: relative;
   overflow: hidden;
+}
+
+.room-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 間取り図全体を表示 */
+  object-position: center;
+  display: block;
+  background: #fff; /* 間取り図の背景を白に */
 }
 
 .room-image::before {
@@ -282,6 +322,8 @@ section {
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
   transition: left 0.6s ease;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .room-card:hover .room-image::before {
@@ -365,18 +407,6 @@ section {
   font-size: 14px;
 }
 
-/* 建築家 */
-.architect {
-  background: #0f0f0f;
-  text-align: center;
-}
-
-.architect-content {
-  background: #111;
-  padding: 60px;
-  text-align: center;
-}
-
 /* アクセス */
 .access {
   background: #0f0f0f;
@@ -447,6 +477,10 @@ footer p {
     padding: 20px 30px;
   }
 
+  .hero {
+    min-height: 500px;
+  }
+
   .hero h1 {
     font-size: 36px;
     letter-spacing: 6px;
@@ -470,6 +504,10 @@ footer p {
     gap: 40px;
   }
 
+  .concept-image {
+    height: 300px;
+  }
+
   .features-grid {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -479,6 +517,10 @@ footer p {
     grid-template-columns: 1fr;
   }
 
+  .room-image {
+    height: 250px;
+  }
+
   .details-grid {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -486,6 +528,28 @@ footer p {
 
   nav {
     display: none;
+  }
+}
+
+/* タブレット用 */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .concept-image {
+    height: 400px;
+  }
+
+  .rooms-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 大画面用 */
+@media (min-width: 1400px) {
+  .concept-image {
+    height: 600px;
+  }
+
+  .room-image {
+    height: 350px;
   }
 }
 
